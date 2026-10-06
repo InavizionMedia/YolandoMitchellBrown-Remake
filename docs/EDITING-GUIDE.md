@@ -1,6 +1,6 @@
 # How to update this website (plain-English guide)
 
-This site is one page made of sections: **Home, About, Resume, Portfolio, Services, Contact.** Everything you can change lives in two places:
+This site is one page made of sections: **Home, About, Resume, Portfolio, Services, Kind Words, Contact.** Everything you can change lives in two places:
 
 - **`index.html`** — all the words on the page
 - **`assets/`** — all the pictures
@@ -60,8 +60,34 @@ The same works for every portfolio card — each one has an `<img src="assets/..
 2. Copy one whole card block — from `<article class="pf-card"` to the matching `</article>` — and paste it right after it.
 3. Change the `data-cat` word to match one of the filters: `videos`, `photos`, `press`, or `graphics`.
 4. Change the picture (`<img src="...">`) and the title (`<h3>...</h3>`) to your new item.
-5. If it's a video: keep the round red play button. Change `data-video-title="..."` to the video's title. The video itself gets linked in the lightbox later.
+5. If it's a video: keep the round red play button. Change `data-video-title="..."` to the video's title, and put the YouTube video ID in `data-video-id="..."` (the ID is the part after `v=` in the YouTube link — for example, in `youtube.com/watch?v=ABC123`, the ID is `ABC123`). The video only loads when a visitor clicks play.
 6. Remove the yellow "sample" tag line once it's your real content.
+
+---
+
+## How to change the short bio
+
+Near the top of the About section there is a box labeled **"Short bio — copy/paste for programs."** This is the short version event organizers paste into programs and agendas. Change the words inside the `<p>...</p>` right under that label, and remove the yellow "sample" tag once it's her approved bio.
+
+---
+
+## How to change the contact email
+
+Find `<!-- SECTION: contact -->`. The big red button looks like this:
+
+```
+<a class="btn btn-primary" href="mailto:hello@yolandomitchellbrown.com">Email Yolando ...
+```
+
+Replace `hello@yolandomitchellbrown.com` with her real email address (keep the `mailto:` part), and delete the yellow "sample" tag next to it. Same for the Calendly line — swap the `#` for her real scheduling link.
+
+---
+
+## How to add a testimonial or press mention
+
+Testimonials are simple stacked cards in the **Kind Words** section — no slider, no code. Copy one whole `<figure class="t-card"> ... </figure>` block, paste it after the last one, change the quote and the name, and remove the "sample" tag.
+
+The **"As seen in"** line above the testimonials lists press appearances. Add names separated by `·` (for example: `Renew Magazine · Renew Women's Expo · Your New Press`).
 
 ---
 

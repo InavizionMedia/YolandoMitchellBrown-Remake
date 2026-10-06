@@ -1,4 +1,6 @@
-/* Yolando Mitchell Brown — v1 preview build interactions */
+/* Yolando Mitchell Brown — v2 polish build interactions
+   Hamburger + portfolio filter + native <dialog> video lightbox with
+   click-to-load YouTube facade. No sliders, no form backend. */
 (function () {
   "use strict";
 
@@ -47,71 +49,82 @@
     var active = document.querySelector(".filter-tab.is-active");
     moveLiquid(active);
   });
-  // Position the liquid pill on load (after fonts/layout settle)
   window.addEventListener("load", function () {
     moveLiquid(document.querySelector(".filter-tab.is-active"));
   });
   moveLiquid(document.querySelector(".filter-tab.is-active"));
 
-  /* --- theater lightbox (videos) --- */
-  var lightbox = document.getElementById("lightbox");
-  var lightboxTitle = document.getElementById("lightboxTitle");
-  var lightboxClose = document.getElementById("lightboxClose");
-  var lightboxBackdrop = document.getElementById("lightboxBackdrop");
+  /* --- video dialog: native <dialog>, click-to-load facade, src cleared on close --- */
+  var dialog = document.getElementById("videoDialog");
+  var dialogTitle = document.getElementById("dialogTitle");
+  var dialogPlayer = document.getElementById("dialogPlayer");
   var lastFocus = null;
 
-  function openLightbox(title) {
-    lastFocus = document.activeElement;
-    lightboxTitle.textContent = title;
-    lightbox.hidden = false;
-    document.body.style.overflow = "hidden";
-    lightboxClose.focus();
+  function stopVideo() {
+    // Remove the iframe entirely so playback stops on close.
+    dialogPlayer.innerHTML = "";
   }
-  function closeLightbox() {
-    lightbox.hidden = true;
-    document.body.style.overflow = "";
-    // If a real embed is added later, this is where it gets stopped/removed.
+
+  function openDialog(title, videoId) {
+    lastFocus = document.activeElement;
+    dialogTitle.textContent = title;
+    stopVideo();
+    if (videoId) {
+      // Click-to-load facade: the YouTube iframe is only created after an explicit click.
+      var facade = document.createElement("button");
+      facade.className = "facade-play";
+      facade.setAttribute("aria-label", "Load and play " + title);
+      var glyph = document.createElement("span");
+      glyph.setAttribute("aria-hidden", "true");
+      glyph.textContent = "▶ ";
+      facade.appendChild(glyph);
+      facade.appendChild(document.createTextNode("Play video"));
+      facade.addEventListener("click", function () {
+        stopVideo();
+        var iframe = document.createElement("iframe");
+        iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+        iframe.title = title;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        dialogPlayer.appendChild(iframe);
+      });
+      dialogPlayer.appendChild(facade);
+    } else {
+      // MOCK: no data-video-id set yet — show the placeholder note.
+      var note = document.createElement("p");
+      note.className = "mock-note";
+      var tag = document.createElement("span");
+      tag.className = "mock-tag";
+      tag.textContent = "sample — real video embed goes here";
+      note.appendChild(tag);
+      dialogPlayer.appendChild(note);
+    }
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal();
+    } else {
+      dialog.setAttribute("open", "");
+    }
+  }
+
+  function closeDialog() {
+    stopVideo();
+    if (dialog.open) dialog.close();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+
   document.querySelectorAll(".pf-play").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      openLightbox(btn.getAttribute("data-video-title") || "Video");
+      openDialog(
+        btn.getAttribute("data-video-title") || "Video",
+        btn.getAttribute("data-video-id") || ""
+      );
     });
   });
-  lightboxClose.addEventListener("click", closeLightbox);
-  lightboxBackdrop.addEventListener("click", closeLightbox);
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
+  document.getElementById("dialogClose").addEventListener("click", closeDialog);
+  // Backdrop click closes (clicks on the dialog element itself, outside the box)
+  dialog.addEventListener("click", function (e) {
+    if (e.target === dialog) closeDialog();
   });
-
-  /* --- testimonial slider --- */
-  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
-  var dotsWrap = document.getElementById("sliderDots");
-  var prev = document.getElementById("prevSlide");
-  var next = document.getElementById("nextSlide");
-  var idx = 0;
-
-  slides.forEach(function (_, i) {
-    var dot = document.createElement("button");
-    dot.setAttribute("role", "tab");
-    dot.setAttribute("aria-label", "Testimonial " + (i + 1));
-    dot.addEventListener("click", function () { goTo(i); });
-    dotsWrap.appendChild(dot);
-  });
-  var dots = Array.prototype.slice.call(dotsWrap.children);
-
-  function goTo(i) {
-    idx = (i + slides.length) % slides.length;
-    slides.forEach(function (s, j) { s.classList.toggle("is-active", j === idx); });
-    dots.forEach(function (d, j) { d.classList.toggle("is-active", j === idx); });
-  }
-  prev.addEventListener("click", function () { goTo(idx - 1); });
-  next.addEventListener("click", function () { goTo(idx + 1); });
-  goTo(0);
-
-  /* --- demo contact form (not wired) --- */
-  document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    alert("Demo form — not wired up. Connect this to Yolando's email or form service at launch.");
-  });
+  // Escape is native to <dialog>; make sure video stops too.
+  dialog.addEventListener("close", stopVideo);
 })();
