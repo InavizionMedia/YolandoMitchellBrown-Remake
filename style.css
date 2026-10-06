@@ -343,6 +343,33 @@ a { color: var(--navy); }
 }
 @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.2fr 1.6fr 1fr; align-items: start; } }
 
+/* --- nav active (scroll-spy) --- */
+.main-nav a.active { color: var(--red); }
+.main-nav a.active::before { color: rgba(224, 43, 32, 0.9); }
+
+/* --- back-to-top --- */
+.to-top {
+  position: fixed; right: 22px; bottom: 22px; z-index: 60;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ivory); color: var(--navy);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 24px rgba(27, 42, 74, 0.18);
+  cursor: pointer; padding: 0;
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    visibility 0s linear 0.35s, color 0.25s ease, border-color 0.25s ease;
+}
+.to-top.visible {
+  opacity: 1; visibility: visible; transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 0.25s ease, border-color 0.25s ease;
+}
+.to-top:hover, .to-top:focus-visible { color: var(--red); border-color: var(--red); }
+@media (prefers-reduced-motion: reduce) {
+  .to-top { transition: none; }
+}
+
 /* --- video dialog (native <dialog> lightbox) --- */
 dialog.video-dialog {
   border: 0; border-radius: 16px; padding: 0;

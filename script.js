@@ -127,4 +127,44 @@
   });
   // Escape is native to <dialog>; make sure video stops too.
   dialog.addEventListener("close", stopVideo);
+
+  /* --- back-to-top: fade in past the hero, smooth scroll home --- */
+  var toTop = document.getElementById("toTop");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ticking = false;
+  function onScroll() {
+    var show = window.scrollY > 600;
+    toTop.classList.toggle("visible", show);
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+  toTop.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+
+  /* --- scroll-spy: highlight the nav link for the section in view --- */
+  var spyLinks = Array.prototype.slice.call(document.querySelectorAll("#mainNav a"));
+  var spyMap = {};
+  spyLinks.forEach(function (a) {
+    var href = a.getAttribute("href");
+    if (href && href.charAt(0) === "#") spyMap[href.slice(1)] = a;
+  });
+  if ("IntersectionObserver" in window) {
+    var spyObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          spyLinks.forEach(function (a) { a.classList.remove("active"); });
+          var link = spyMap[en.target.id];
+          if (link) link.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-35% 0px -55% 0px" });
+    Object.keys(spyMap).forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s) spyObs.observe(s);
+    });
+  }
 })();
