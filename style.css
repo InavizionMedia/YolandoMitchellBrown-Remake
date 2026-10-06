@@ -135,6 +135,27 @@ a { color: var(--navy); }
   border: 5px solid #fff; box-shadow: var(--shadow); margin: 0 auto 18px; display: block;
 }
 .about-full { max-width: 780px; margin: 0 auto; }
+
+/* --- washed parallax section backgrounds (ChatGPT stand-ins, 2026-10-06) --- */
+.hero {
+  background-image: linear-gradient(rgba(250, 246, 239, 0.88), rgba(250, 246, 239, 0.88)), url("assets/bg-hero.jpg");
+  background-size: cover; background-position: center;
+}
+.section.parallax-wash { position: relative; background-size: cover; background-position: center; }
+.section.parallax-wash::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(250, 246, 239, 0.9); pointer-events: none;
+}
+.section.parallax-wash > .wrap { position: relative; }
+#resume.parallax-wash { background-image: url("assets/bg-craft.jpg"); }
+#contact.parallax-wash { background-image: url("assets/bg-conversation.jpg"); }
+
+@media (min-width: 860px) and (hover: hover) {
+  .hero, .section.parallax-wash { background-attachment: fixed; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero, .section.parallax-wash { background-attachment: scroll; }
+}
 .about-copy h3 { font-family: var(--display); color: var(--navy); font-size: 24px; margin: 0 0 12px; }
 .about-copy h4 { font-family: var(--display); color: var(--navy); margin: 28px 0 12px; font-size: 19px; }
 .pull-quote {
