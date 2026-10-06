@@ -109,8 +109,9 @@ a { color: var(--navy); }
   .main-nav a { justify-content: flex-start; gap: 14px; counter-increment: menu; }
   .main-nav a::before {
     content: counter(menu, upper-roman);
-    flex: none; font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
-    color: var(--muted); opacity: 0.6;
+    flex: none; width: 30px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+    color: rgba(224, 43, 32, 0.35);
   }
 }
 @media (prefers-reduced-motion: reduce) {
