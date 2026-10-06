@@ -108,7 +108,7 @@ a { color: var(--navy); }
   .main-nav { counter-reset: menu; }
   .main-nav a { justify-content: flex-start; gap: 14px; counter-increment: menu; }
   .main-nav a::before {
-    content: counter(menu, upper-roman);
+    content: counter(menu, decimal-leading-zero);
     flex: none; width: 30px;
     font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
     color: rgba(224, 43, 32, 0.35);
