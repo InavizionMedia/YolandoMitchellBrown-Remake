@@ -289,6 +289,7 @@ a { color: var(--navy); }
 .site-footer { background: var(--navy); color: var(--ivory); margin-top: 0; }
 .footer-grid { display: grid; gap: 24px; padding: 44px 20px 28px; }
 .footer-brand .brand-script { color: var(--ivory); }
+.footer-brand .brand-sub { display: block; margin-top: 2px; color: var(--ivory); opacity: 0.65; }
 .footer-brand p { margin: 8px 0 0; font-size: 14px; opacity: 0.75; }
 .footer-nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .footer-nav a { color: var(--ivory); text-decoration: none; font-size: 14px; opacity: 0.85; }
