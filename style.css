@@ -173,13 +173,13 @@ a { color: var(--navy); }
 
 /* --- washed parallax section backgrounds (ChatGPT stand-ins, 2026-10-06) --- */
 .hero {
-  background-image: linear-gradient(rgba(250, 246, 239, 0.80), rgba(250, 246, 239, 0.80)), url("assets/bg-hero.jpg");
+  background-image: linear-gradient(rgba(250, 246, 239, 0.86), rgba(250, 246, 239, 0.86)), url("assets/bg-hero.jpg");
   background-size: cover; background-position: center;
 }
 .section.parallax-wash { position: relative; background-size: cover; background-position: center; }
 .section.parallax-wash::before {
   content: ""; position: absolute; inset: 0;
-  background: rgba(250, 246, 239, 0.78); pointer-events: none;
+  background: rgba(250, 246, 239, 0.86); pointer-events: none;
 }
 .section.parallax-wash > .wrap { position: relative; }
 #resume.parallax-wash { background-image: url("assets/bg-craft.jpg"); }
