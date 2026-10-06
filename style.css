@@ -357,8 +357,8 @@ dialog.video-dialog::backdrop { background: rgba(10, 8, 6, 0.82); }
   transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .dialog-close:hover { transform: scale(1.06); }
-.dialog-title { font-family: var(--display); color: var(--navy); margin: 0; padding: 20px 24px 0; font-size: 22px; }
-.dialog-player { padding: 16px 24px 24px; }
+.dialog-title { font-family: var(--display); color: var(--navy); margin: 0; padding: 14px 20px 0; font-size: 17px; line-height: 1.35; }
+.dialog-player { padding: 12px 16px 16px; }
 .dialog-player iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 8px; display: block; }
 .dialog-player .mock-note { margin: 12px 0 0; }
 /* click-to-load video facade — the iframe is only created after an explicit click */
