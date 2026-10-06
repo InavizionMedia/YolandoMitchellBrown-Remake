@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Portrait placeholder — Yolando's photo incoming">
+  <rect width="800" height="1000" fill="#FAF7F2"/>
+  <rect x="40" y="40" width="720" height="920" fill="none" stroke="#1B2A4A" stroke-width="3" opacity="0.35"/>
+  <circle cx="400" cy="380" r="130" fill="#E8E2D8"/>
+  <circle cx="400" cy="380" r="130" fill="none" stroke="#1B2A4A" stroke-width="3" opacity="0.5"/>
+  <rect x="250" y="560" width="300" height="40" rx="8" fill="#1B2A4A" opacity="0.25"/>
+  <rect x="300" y="620" width="200" height="28" rx="8" fill="#E02B20" opacity="0.6"/>
+  <text x="400" y="800" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#1B2A4A">Portrait</text>
+  <text x="400" y="852" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#1A1815" opacity="0.7">Yolando's photo incoming</text>
+</svg>
